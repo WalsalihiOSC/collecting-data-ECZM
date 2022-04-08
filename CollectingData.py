@@ -6,6 +6,15 @@ class CollectingData:
     
     def __init__(self, parent):
         """Collecting person's data"""
+
+        global name, age, answer
+
+        self.person_data = []
+
+        name = 0
+        age = 0
+        answer = 0
+        self.data = Data(name, age, answer)
   
         self.f1 = Frame(parent, height = 450, width = 450)
         self.f1.grid(column = 0, row = 0)
@@ -48,8 +57,14 @@ class CollectingData:
         label3 = Label(self.f4, text = "Do you have a mobile phone?", bg = "#AEE4ED")
         label3.grid(column = 0, row = 0, padx = 30, pady = 20)
 
-        button2 = Button(self.f5, text = "Enter Data")
+        button2 = Button(self.f5, text = "Enter Data", command = self.clear_data)
         button2.grid(column = 0, row = 0, padx = 175)
+
+        self.label4 = Label(self.f3, text = "", fg = "red", bg = "#AEE4ED")
+        self.label4.grid(sticky = W, column = 2, row = 0, padx = 30, pady = 30)
+
+        self.label5 = Label(self.f3, text = "", fg = "red", bg = "#AEE4ED")
+        self.label5.grid(sticky = W, column = 2, row = 0, padx = 30)
 
         self.label4 = Label(self.f3, text = "", fg = "red", bg = "#AEE4ED")
         self.label4.grid(sticky = W, column = 2, row = 0, padx = 30, pady = 30)
@@ -64,6 +79,8 @@ class CollectingData:
 
         rb1.grid(column = 1, row = 0)
         rb2.grid(column = 1, row = 1)
+
+        self.person_data.append(Data(name.get(), str(age.get()), answer.get()))
 
         
         """Display Person Data"""
@@ -98,13 +115,13 @@ class CollectingData:
         xlabel3 = Label(self.xf3, text = "Age:", bg = "#AEE4ED")
         xlabel3.grid(sticky = W, column = 0, row = 1, padx = 30)
 
-        self.xlabel4 = Label(self.xf3, text = "", bg = "#AEE4ED")
+        self.xlabel4 = Label(self.xf3, text = self.person_data[0].name, bg = "#AEE4ED")
         self.xlabel4.grid(column = 1, row = 0)
 
-        self.xlabel5 = Label(self.xf3, text = "", bg = "#AEE4ED")
+        self.xlabel5 = Label(self.xf3, text = str(self.person_data[0].age), bg = "#AEE4ED")
         self.xlabel5.grid(column = 1, row = 1)
 
-        self.xlabel6 = Label(self.xf4, text = "", bg = "#AEE4ED")
+        self.xlabel6 = Label(self.xf4, text = self.person_data[0].name + self.person_data[0].answer, bg = "#AEE4ED")
         self.xlabel6.grid(column = 0, row = 0, padx = 30)
 
         xbutton2 = Button(self.xf5, text = "Previous")
@@ -123,8 +140,20 @@ class CollectingData:
         """Takes to the Collect Person frame"""
         self.f1.grid(column = 0, row = 0)
         self.xf1.grid_forget()
+
+    def clear_data(self):
+        """Clears data"""
+        name.delete(0, 'end')
+        age.delete(0, 'end')
         
     
+class Data:
+    def __init__(self, name, age, answer):
+        self.name = name
+        self.age = age
+        self.answer = answer
+
+
 
 
 #Main Routine
