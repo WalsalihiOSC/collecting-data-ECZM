@@ -6,10 +6,9 @@ class CollectingData:
     
     def __init__(self, parent):
         """Collecting person's data"""
-        
+  
         self.f1 = Frame(parent, height = 450, width = 450)
         self.f1.grid(column = 0, row = 0)
-        
         self.f1.grid_propagate(0)
 
         self.f2 = Frame(self.f1, height = 100, width = 450, bg = "#5FB7CF")
@@ -31,7 +30,7 @@ class CollectingData:
         label1 = Label(self.f2, text = "Collecting Person Data", bg = "#5FB7CF", font = ("", 20))
         label1.grid(column = 0, row = 0, padx = 30, pady = 30)
 
-        button1 = Button(self.f2, text = "Show All", height = 2, width = 10)
+        button1 = Button(self.f2, text = "Show All", height = 2, width = 10, command = self.change_to_DisplayPersonData)
         button1.grid(column = 1, row = 0, padx = 30)
 
         label2 = Label(self.f3, text = "First Name:", bg = "#AEE4ED")
@@ -66,8 +65,6 @@ class CollectingData:
         rb1.grid(column = 1, row = 0)
         rb2.grid(column = 1, row = 1)
 
-    
-
         
         """Display Person Data"""
         self.xf1 = Frame(parent, height = 450, width = 450)
@@ -92,7 +89,7 @@ class CollectingData:
         xlabel1 = Label(self.xf2, text = "Display Person Data", bg = "#5FB7CF", font = ("", 20))
         xlabel1.grid(column = 0, row = 0, padx = 30, pady = 30)
 
-        xbutton1 = Button(self.xf2, text = "Add New Person", height = 2, width = 15)
+        xbutton1 = Button(self.xf2, text = "Add New Person", height = 2, width = 15, command = self.change_to_CollectPersonData)
         xbutton1.grid(column = 1, row = 0, padx = 30)
 
         xlabel2 = Label(self.xf3, text = "First Name:", bg = "#AEE4ED")
@@ -115,8 +112,20 @@ class CollectingData:
 
         xbutton3 = Button(self.xf5, text = "Next")
         xbutton3.grid(sticky = E, column = 1, row = 0, padx  = 250)
+    
+
+    def change_to_DisplayPersonData(self):
+        """Takes to the Display Person frame"""
+        self.xf1.grid(column = 0, row = 0)
+        self.f1.grid_forget()
+
+    def change_to_CollectPersonData(self):
+        """Takes to the Collect Person frame"""
+        self.f1.grid(column = 0, row = 0)
+        self.xf1.grid_forget()
         
     
+
 
 #Main Routine
 if __name__ == "__main__":
