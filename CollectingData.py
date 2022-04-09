@@ -48,10 +48,10 @@ class CollectingData:
         label3 = Label(self.f3, text = "Age", bg = "#AEE4ED")
         label3.grid(sticky = W, column = 0, row = 1, padx = 30)
 
-        name = Entry(self.f3, width = 20)
+        name = Entry(self.f3, width = 27)
         name.grid(column = 1, row = 0)
 
-        age = Entry(self.f3, width = 20)
+        age = Entry(self.f3, width = 27)
         age.grid(column = 1, row = 1)
 
         label3 = Label(self.f4, text = "Do you have a mobile phone?", bg = "#AEE4ED")
@@ -59,18 +59,6 @@ class CollectingData:
 
         button2 = Button(self.f5, text = "Enter Data", command = self.store_data)
         button2.grid(column = 0, row = 0, padx = 175)
-
-        self.label4 = Label(self.f3, text = "", fg = "red", bg = "#AEE4ED")
-        self.label4.grid(sticky = W, column = 2, row = 0, padx = 30, pady = 30)
-
-        self.label5 = Label(self.f3, text = "", fg = "red", bg = "#AEE4ED")
-        self.label5.grid(sticky = W, column = 2, row = 0, padx = 30)
-
-        self.label4 = Label(self.f3, text = "", fg = "red", bg = "#AEE4ED")
-        self.label4.grid(sticky = W, column = 2, row = 0, padx = 30, pady = 30)
-
-        self.label5 = Label(self.f3, text = "", fg = "red", bg = "#AEE4ED")
-        self.label5.grid(sticky = W, column = 2, row = 0, padx = 30)
 
         answer = StringVar()
         answer.set("0")
@@ -125,7 +113,7 @@ class CollectingData:
         self.xlabel6 = Label(self.xf4, text = "", bg = "#AEE4ED")
         self.xlabel6.grid(column = 0, row = 0, padx = 30)
 
-        xbutton2 = Button(self.xf5, text = "Previous")
+        xbutton2 = Button(self.xf5, text = "Previous", command = self.previous)
         xbutton2.grid(sticky = W, column = 0, row = 0, padx = 30)
 
         xbutton3 = Button(self.xf5, text = "Next", command = self.next)
@@ -144,7 +132,7 @@ class CollectingData:
 
     def store_data(self):
         """Store data and Clear data"""
-        self.person_data.append(Data(name.get(), str(age.get()), answer.get()))
+        self.person_data.append(Data(name.get().capitalize(), str(age.get()), answer.get()))
 
         self.xlabel4.configure(text = self.person_data[0].name)
         self.xlabel5.configure(text = str(self.person_data[0].age))
@@ -162,8 +150,16 @@ class CollectingData:
         self.xlabel5.configure(text = str(self.person_data[self.target].age))
         self.xlabel6.configure(text = self.person_data[self.target].name + self.person_data[self.target].answer)
     
+    def previous(self):
+        """Previous button click, shows previous person's data in list"""
+        self.target -= 1
+        if self.target < 0:
+            self.target =  len(self.person_data) - 1
+        self.xlabel4.configure(text = self.person_data[self.target].name)	
+        self.xlabel5.configure(text = str(self.person_data[self.target].age))
+        self.xlabel6.configure(text = self.person_data[self.target].name + self.person_data[self.target].answer)
     
-    
+
 class Data:
     def __init__(self, name, age, answer):
         self.name = name
