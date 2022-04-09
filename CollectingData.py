@@ -79,6 +79,7 @@ class CollectingData:
 
         rb1.grid(column = 1, row = 0)
         rb2.grid(column = 1, row = 1)
+
         
         
         """Display Person Data"""
@@ -113,6 +114,8 @@ class CollectingData:
         xlabel3 = Label(self.xf3, text = "Age:", bg = "#AEE4ED")
         xlabel3.grid(sticky = W, column = 0, row = 1, padx = 30)
 
+        self.target = 0
+
         self.xlabel4 = Label(self.xf3, text = "", bg = "#AEE4ED")
         self.xlabel4.grid(column = 1, row = 0)
 
@@ -125,7 +128,7 @@ class CollectingData:
         xbutton2 = Button(self.xf5, text = "Previous")
         xbutton2.grid(sticky = W, column = 0, row = 0, padx = 30)
 
-        xbutton3 = Button(self.xf5, text = "Next")
+        xbutton3 = Button(self.xf5, text = "Next", command = self.next)
         xbutton3.grid(sticky = E, column = 1, row = 0, padx  = 250)
     
 
@@ -150,16 +153,22 @@ class CollectingData:
         name.delete(0, 'end')
         age.delete(0, 'end')
 
-  
+    def next(self):
+        """Next button click, shows next person's data in list"""
+        self.target += 1
+        if self.target >= len(self.person_data):
+            self.target = 0
+        self.xlabel4.configure(text = self.person_data[self.target].name)	
+        self.xlabel5.configure(text = str(self.person_data[self.target].age))
+        self.xlabel6.configure(text = self.person_data[self.target].name + self.person_data[self.target].answer)
     
-
+    
     
 class Data:
     def __init__(self, name, age, answer):
         self.name = name
         self.age = age
         self.answer = answer
-
 
 
 
